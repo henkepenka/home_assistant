@@ -1,0 +1,70 @@
+resources:
+  - url: /local/gauge-card.js?v=1
+    type: js
+
+title: Brunkulla
+
+views:
+  - icon: mdi:home
+    title: Hem
+    id: home
+    cards:
+      - type: weather-forecast
+        entity: weather.yweather
+        title: Väderprognos
+
+      - type: picture-glance
+        title: Vardagsrum
+        entities:
+          - sensor.vardagsrum_temperature
+          - switch.fonster_matbord
+          - switch.fonster_soffan
+          - switch.oppna_spisen
+          - switch.sma_husen_tvbank
+        image: /local/vardagsrum.jpg
+
+      - type: picture-elements
+        image: /local/plant_bg.jpg
+        elements:
+          - type: state-label
+            entity: sensor.tomaterna_fukt
+            style:
+              color: white
+              top: 15%
+              left: 90%
+              font-size: 130%
+              #font-weight: bold;
+              
+
+          #- type: state-label
+          #  entity: sensor.hum_outside
+          #  style:
+          #    top: 47%
+          #    left: 24.8%
+          #    font-size: 150%
+          #    font-weight: bold;
+          #- type: state-icon
+          #  entity: sensor.yr_symbol
+          #  style:
+          #    top: 52%
+          #    left: 40%
+
+  - icon: mdi:pool
+    title: Poolen
+    id: poolen
+    cards:
+      - type: picture-glance
+        title: Poolen
+        entities:
+          - switch.poolen_pump 
+        image: /local/pool.jpg
+
+  - icon: mdi:pool
+    title: Xiaomi MI robot
+    id: xiaomi
+    cards:
+      - type: picture-glance
+        title: Damsugaren
+        entities:
+          - vacuum.xiaomi_vacuum_cleaner
+        image: /local/xiaomi.jpeg

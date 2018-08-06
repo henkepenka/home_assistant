@@ -1,0 +1,86 @@
+default_view:
+  view: yes
+  icon: mdi:home 
+  entities:
+#    - group.track_people_default
+    - group.light_inside_default
+    - group.poolen
+#    - group.different_scenes_default
+    - group.vacuum
+#    - group.sensor_default
+#    - group.wasshing_machine
+#    - group.speed_test
+
+#track_people_default:
+#  name: Allmänt
+#  entities:
+#    - sensor.lisas_telefon
+#    - sensor.henriks_telefon
+#    - sensor.namnsdag
+
+vacuum:
+  name: Damsugaren
+  entities:
+    - vacuum.xiaomi_vacuum_cleaner
+    - sensor.vacuum_status
+    - sensor.vacuum_battery
+    - sensor.vacuum_fan_speed
+    - sensor.vacuum_cleaned_area
+    - sensor.vacuum_cleaning_time
+    - sensor.vacuum_cleaning_count
+    - sensor.vacuum_total_cleaned_area
+    - sensor.vacuum_total_cleaning_time
+
+washing_machine:
+  name: Tvättmaskin & torktumlare
+  entities:
+    - sensor.tvattmaskin_status
+    - sensor.torktumlare_status
+
+speed_test:
+  name: Speed test
+  entities:
+#    - sensor.speedtest_download
+#    - sensor.speedtest_upload
+#    - sensor.speedtest_ping
+
+different_scenes_default:
+  name: Scener
+  entities:
+    - scene.godmorgon
+    - scene.godnatt
+  control: hidden
+
+light_inside_default:
+  name: Belysning inne
+  entities:
+    - switch.fonster_matbord
+    - switch.fonster_soffan
+    - switch.oppna_spisen
+    - switch.sma_husen_tvbank
+    - light.ljusslinga_hall_level
+    - light.rod_hurts_vardagsrum
+    - switch.fonster_pysselrum
+    - switch.fonster_pysselrum_2
+    - switch.fonster_sovrum
+    - switch.fonster_sovrum_2
+    - light.everspring_ad147_plugin_dimmer_module_level
+
+
+poolen:
+  name: Poolen
+  entities:
+    - switch.poolen_pump 
+    - switch.poolen_varme
+
+sensor_default:
+  name: Sensorer
+  entities:
+    - sensor.vardagsrum_temperature
+    - sensor.vardagsrum_humidity
+    - sensor.kallare_forradet_temperature
+    - sensor.kallare_forradet_humidity
+    - sensor.kallare_tvattstugan_temperature
+    - sensor.kallare_tvattstugan_humidity
+    - sensor.ute_ytterdorr_temperature
+    - sensor.poolen_temperature

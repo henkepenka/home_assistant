@@ -1,0 +1,133 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Brunkulla Hägnen 10
+  # Location required to calculate the time the sun rises and sets
+  latitude: 57.84650
+  longitude: 14.33335
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 280
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Stockholm
+  # Customization file
+  customize: !include customize.yaml
+
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+   api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+device_tracker:
+  - platform: bluetooth_tracker
+
+zwave:
+  usb_path: /dev/ttyACM0
+
+vacuum:
+  - platform: xiaomi_miio
+    host: 192.168.1.103
+    token: !secret xiaomi_token
+
+mqtt:
+  broker: m23.cloudmqtt.com
+  port: 15022
+  username: hass
+  password: hass
+  keepalive: 60
+
+# Weather prediction
+sensor:
+  - platform: yr
+  - platform: template
+    sensors:
+      tvattmaskin_status:
+        value_template: '{{ states.input_select.tvattmaskin_status.state}}'
+        friendly_name: 'Tvättmaskinen'
+      torktumlare_status:
+        value_template: '{{ states.input_select.torktumlare_status.state}}'
+        friendly_name: 'Torktumlaren'
+      magnet_ytterdorr:
+        value_template: '{% if is_state("binary_sensor.magnet_ytterdorr_sensor", "on") %}Öppen{% else %}Stängd{%endif %}'
+        friendly_name: 'Magnet ytterdörr'
+#      lisas_telefon:
+#        value_template: '{% if is_state("device_tracker.galaxys8", "not_home") %}Inte hemma{% else %}Hemma{%endif %}'
+#      henriks_telefon:
+#        value_template: '{% if is_state("device_tracker.huawei_mate_10_pro5f6422", "not_home") %}Inte hemma{% else %}Hemma{%endif %}'
+      vacuum_status:
+        value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.status }}'
+        friendly_name: 'Status'
+      vacuum_battery:
+        value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.battery_level }}'
+        friendly_name: 'Batteri'
+      vacuum_fan_speed:
+        value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.fan_speed }}'
+        friendly_name: 'Fläkthastighet'
+      vacuum_cleaning_time:
+        value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaning_time }}'
+        friendly_name: 'Tid senaste städning'
+      vacuum_cleaned_area:
+        value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaned_area }}'
+        friendly_name: 'Yta senaste städning'
+      vacuum_cleaning_count:
+        value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.cleaning_count }}'
+        friendly_name: 'Antal städningar'
+      vacuum_total_cleaned_area:
+        value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.total_cleaned_area }}'
+        friendly_name: 'Totalt städad yta'
+      vacuum_total_cleaning_time:
+        value_template: '{{ states.vacuum.xiaomi_vacuum_cleaner.attributes.total_cleaning_time }}'
+        friendly_name: 'Totalt städad tid'
+  - platform: mqtt
+    state_topic: 'tomaterna/soil'
+    name: 'Tomaterna fukt'
+    unit_of_measurment: '%'
+
+weather:
+  - platform: yweather
+
+# Text to speech
+tts:
+  - platform: google
+
+# Cloud
+cloud:
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
