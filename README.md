@@ -1,2 +1,2 @@
 # home_assistant
-Home assistant config
+Detta är min Home Assistant-konfiguration
